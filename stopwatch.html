@@ -1,0 +1,209 @@
+<html>
+
+<head>
+    <style>
+        body {
+            background-color: #0a0a0a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        div {
+            display: flex;
+            align-items: center;
+        }
+        
+        .a {
+            height: 80vh;
+            width: 800px;
+            flex-flow: column;
+            justify-content: space-between;
+            color: #c70101;
+        }
+        
+        .a1 {
+            height: 15vh;
+            width: 70%;
+            justify-content: center;
+            font-size: 100px;
+            color: #d34701;
+        }
+        
+        .a2 {
+            height: 15vh;
+            width: 70%;
+            justify-content: space-between;
+        }
+        
+        .a3 {
+            height: 40vh;
+            width: 70%;
+            border-top: 2px solid #181818;
+        }
+        
+        #b1 {
+            height: 100px;
+            width: 100px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            color: #d3d3d3f0;
+            background-color: #454545;
+            border: 5px double #0a0a0a;
+        }
+        
+        #b2 {
+            height: 100px;
+            width: 100px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 18px;
+            border: 6px double red;
+        }
+        
+        #m {
+            heigth: 40px;
+        }
+        
+        #label1 {
+            color: white;
+        }
+        
+        .a3 {
+            display: flex;
+            flex-flow: column;
+            font-size: 25px;
+        }
+        
+        #i2,
+        #i1 {
+            color: #545353;
+        }
+        
+        br {
+            border: 1px;
+        }
+        
+        .pr {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 3px solid #181818;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="a">
+        <div class="a1">
+            <label id="m">00:00:00</label>
+        </div>
+        <div class="a2">
+            <button id="b1">Lap</button>
+            <button id="b2">Start</button>
+
+        </div>
+        <div class="a3">
+
+            <div>
+            </div>
+            <script>
+                var s = 0;
+                var i = 1;
+                var id;
+                var b = document.getElementById('b2');
+                var b1 = document.getElementById('b1');
+                var m = document.getElementById('m');
+                var a = document.querySelector('div.a3');
+
+                f();
+
+                function f() {
+                    b.innerHTML = "Start";
+                    b.style.color = "#d3d3d3f0";
+                    b.style.backgroundColor = "#454545";
+                    b.style.border = "5px double #0a0a0a";
+
+                    b.onclick = function() {
+                        clearInterval(id);
+                        id = setInterval(timer, 1000 / 60);
+                        b1.innerHTML = "Lap";
+                        b1.onclick = function() {
+
+
+                            const an1 = document.createElement('div');
+                            an1.className = "pr";
+                            an1.innerHTML = "<div id='i1'>lap " + i + "-</div><div id='i2'>" + m.innerHTML + "</div>";
+                            a.appendChild(an1);
+
+                            i++;
+
+
+                        }
+
+                    }
+
+                }
+
+                function timer() {
+
+
+
+
+                    b.innerHTML = "Stop";
+                    b.style.color = "#fa3232";
+                    b.style.backgroundColor = "#6b0000f0";
+                    b.style.border = "5px double #0a0a0a";
+                    b.onclick = function() {
+
+
+                        clearInterval(id);
+                        b1.innerHTML = "Reset";
+                        b1.onclick = function() {
+                            b1.innerHTML = "Lap";
+                            b1.onclick = function() {
+
+
+                                const an1 = document.createElement('div');
+                                an1.className = "pr";
+                                an1.innerHTML = "<div id='i1'>lap " + i + "-</div><div id='i2'>" + m.innerHTML + "</div>";
+                                a.appendChild(an1);
+
+                                i++;
+
+                            }
+                            s = 0;
+                            i = 1;
+                            a.innerHTML = "";
+                            m.innerHTML = "00:00:00";
+                            f();
+                        };
+
+                        f();
+
+                    };
+
+                    s++;
+
+                    if ((s / 3600) % 60 < 10 && (s / 60) % 60 < 10 && s % 60 < 10) {
+                        m.innerHTML = "0" + parseInt((s / 3600) % 60) + ":0" + parseInt((s / 60) % 60) + ":0" + parseInt(s % 60);
+                    }
+                    if ((s / 3600) % 60 < 10 && (s / 60) % 60 < 10 && s % 60 > 9) {
+                        m.innerHTML = "0" + parseInt((s / 3600) % 60) + ":0" + parseInt((s / 60) % 60) + ":" + parseInt(s % 60);
+                    }
+                    if ((s / 3600) % 60 < 10 && (s / 60) % 60 > 9 && s % 60 > 9) {
+                        m.innerHTML = "0" + parseInt((s / 3600) % 60) + ":" + parseInt((s / 60) % 60) + ":" + parseInt(s % 60);
+                    }
+                    if ((s / 3600) % 60 > 9 && (s / 60) % 60 > 9 && s % 60 > 9) {
+                        m.innerHTML = parseInt((s / 3600) % 60) + ":" + parseInt((s / 60) % 60) + ":" + parseInt(s % 60);
+                    }
+
+                }
+            </script>
+</body>
+
+</html>
